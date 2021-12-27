@@ -6,22 +6,24 @@ function offset(el) {
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     return { top: rect.top + scrollTop, left: rect.left + screenLeft }
 }
-function animator() {
-    const animItems = document.querySelectorAll('.anim');
-    for (let i = 0; i < animItems.length; i++) {
-        const animItem = animItems[i]
-        const itemOffset = offset(animItem).top
-        const animStart = 4
-        if (animItem) {
-            const itemHeight = animItem.offsetHeight
-            let animItemPoint = window.innerHeight - itemHeight / animStart;
+const animItems = document.querySelectorAll('.anim');
+if (animItems.length >= 1) {
+    function animator() {
+        for (let i = 0; i < animItems.length; i++) {
+            const animItem = animItems[i]
+            const itemOffset = offset(animItem).top
+            const animStart = 4
+            if (animItem) {
+                const itemHeight = animItem.offsetHeight
+                let animItemPoint = window.innerHeight - itemHeight / animStart;
 
-            if (itemHeight > window.innerHeight) {
-                animItemPoint = window.innerHeight - window.innerHeight / animStart;
-            }
+                if (itemHeight > window.innerHeight) {
+                    animItemPoint = window.innerHeight - window.innerHeight / animStart;
+                }
 
-            if ((window.pageYOffset > itemOffset - animItemPoint) && window.pageYOffset < (itemOffset + itemHeight)) {
-                animItem.classList.add('is_active')
+                if ((window.pageYOffset > itemOffset - animItemPoint) && window.pageYOffset < (itemOffset + itemHeight)) {
+                    animItem.classList.add('is_active')
+                }
             }
         }
     }

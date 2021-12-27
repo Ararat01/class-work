@@ -1,1 +1,9 @@
-<p>test works!</p>
+<select (change)="i = $any($event.target).selectedIndex - 1">
+    <option hidden>Select a country</option>
+    <option *ngFor="let country of countries">{{country.countryName}}</option>
+</select>
+
+<select *ngIf="i >= 0">
+    <option hidden>Select a city</option>
+    <option *ngFor="let city of countries[i].cities">{{city.name}}</option>
+</select>
