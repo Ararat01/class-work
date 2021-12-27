@@ -1,73 +1,29 @@
-$fz:30px;
-$backColor: red;
-%tplborder {
-    border-bottom: 2px dashed red;
-}
-
-@mixin fontz($f, $c){
-    font-size: $f;
-    color: $c;
+.first {
+    height: 100vh;
     background-color: red;
 }
-@mixin dflex($jcont, $aitem) {
-    display: flex;
-    justify-content: $jcont;
-    align-items: $aitem;
-}
-
-
-.block {
-    width:  80%;
-    margin: 0 auto;
-    font-family: sans-serif;
+.second {
+    height: 100vh;
     background-color: blue;
-    h1 {
-        span {
-            color: $backColor;
-            text-transform: uppercase;
-            font-size: 150px;
-            position: relative;
-            z-index: 1;
-            &:after {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 50px;
-                background-color: green;
-                bottom: 10px;
-                left: 0;
-                z-index: -1;
-            }
-        }
-    }
-    p {
-        background-color: rgba(128, 0, 128, 0.096);
-        text-align: center;
-    }
-    button {
-        background-color: transparent;
-        color: black;
-        padding: 5px 30px;
-        @include fontz(80px, black);
-        cursor: pointer;
-    }
 }
-.link {
-    color: blue;
-    text-decoration: underline;
-    &:hover {
-        text-decoration: none;
+.third {
+    padding: 100px 50px;
+    display: flex;
+    justify-content: space-between;
+    .left, .right {
+        width: 45%;
+        transition: 0.8s;
     }
-    @extend %tplborder;
-}
-#test {
-    
-    background-color: rgb(82, 82, 82);
-    @include dflex(space-between, center);
-    div {
-        height: 100px;
-        width: 100px;
-        background-color: black;
+    .left {
+        transform: translate(-30%, 0px);
+        opacity: 0;
     }
-    
+    .right {
+        transform: translate(30%, 0px);
+        opacity: 0;
+    }
+    .left.is_active, .right.is_active {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
 }
