@@ -155,4 +155,7 @@ export class TestComponent implements OnInit {
       ]
     }
   ];
+  log(par: any) {
+    this.i = par.selectedIndex - 1;
+  }
 }

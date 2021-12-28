@@ -1,4 +1,4 @@
-<select (change)="i = $any($event.target).selectedIndex - 1">
+<select (change)="log($event.target)">
     <option hidden>Select a country</option>
     <option *ngFor="let country of countries">{{country.countryName}}</option>
 </select>
