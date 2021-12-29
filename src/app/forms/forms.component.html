@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="send()">
+    <label for="first_name">First name</label>
+    <div>
+        <input type="text" formControlName="first_name">
+    </div>
+    <label for="last_name">Last name</label>
+    <div>
+        <input type="text" formControlName="last_name">
+    </div>
+    <label for="email">Email</label>
+    <div>
+        <input type="email" formControlName="email">
+    </div>
+    <label for="age">Age</label>
+    <div>
+        <input type="number" formControlName="age">
+    </div>
+    <label for="phone">Phone</label>
+    <div>
+        <input type="tel" formControlName="phone">
+    </div>
+    <button [disabled]="form.invalid">SEND</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+</form>
