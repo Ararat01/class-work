@@ -13,7 +13,7 @@ export class FormsComponent implements OnInit {
     last_name: new FormControl(''),
     email: new FormControl('', Validators.email),
     age: new FormControl(''),
-    phone: new FormControl('')
+    phone: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)])
   })
 
   constructor() { }
@@ -33,7 +33,8 @@ export class FormsComponent implements OnInit {
 
   send() {
     console.table(this.form.value);
-    this.resetForm()
+    console.log(this.form.get('email'))
+    // this.resetForm()
   }
 
   resetForm() {
