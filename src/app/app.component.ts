@@ -15,10 +15,9 @@ import { Component,
 })
 export class AppComponent {
   title = 'class-work';
+  text = ''
 
   ngAfterViewInit(): void {
-    console.log(document.getElementById('myId'))
-    console.log(document.getElementById('myId')?.style.backgroundColor)
     let a = document.getElementById('myId')
     try {
       if(a) {
@@ -29,4 +28,9 @@ export class AppComponent {
       console.log(e);
     }
   }
+
+  test(value: string) {
+    this.text = value
+  }
+
 }

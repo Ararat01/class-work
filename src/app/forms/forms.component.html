@@ -1,36 +1,48 @@
-<form [formGroup]="form" (ngSubmit)="send()">
-    <label for="first_name">First name</label>
-    <div>
-        <input type="text" formControlName="first_name">
-    </div>
-    <div *ngIf="form.get('first_name')?.invalid && (form.get('first_name')?.dirty || form.get('first_name')?.touched)">
-        <span>not valid</span>
-    </div>
-    <label for="last_name">Last name</label>
-    <div>
-        <input type="text" formControlName="last_name">
-    </div>
-    <label for="email">Email</label>
-    <div>
-        <input type="email" formControlName="email">
-    </div>
-    <label for="age">Age</label>
-    <div>
-        <input type="number" formControlName="age">
-    </div>
-    <label for="phone">Phone</label>
-    <div>
-        <input type="tel" formControlName="phone">
-    </div>
-    <div *ngIf="form.get('phone')?.hasError('required')">
-        required
-    </div>
-    <div *ngIf="form.get('phone')?.hasError('minlength')">
-        2 symbols min
-    </div>
-    <div *ngIf="form.get('phone')?.hasError('maxlength')">
-        15 symbols max
-    </div>
-    <button [disabled]="form.invalid">SEND</button>
-    <button type="button" (click)="resetForm()">Reset</button>
-</form>
+<section class="members">
+    
+    <table class="members_table">
+        <tr><td colspan="7"><h3>MEMBERS</h3></td></tr>
+        <tr>
+            <td>ID</td>
+            <td>NAME</td>
+            <td>SURNAME</td>
+            <td>AGE</td>
+            <td>GENDER</td>
+            <td>EMAIL</td>
+            <td>ACTIONS</td>
+        </tr>
+        <tr *ngFor="let member of members; let i = index">
+            <td>{{member.id}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.lastname}}</td>
+            <td>{{member.age}}</td>
+            <td>{{member.gender}}</td>
+            <td>{{member.email}}</td>
+            <td><button (click)="openOrClose(i)">EDIT</button></td>
+        </tr>
+    </table>
+    <form *ngIf="formopen" [formGroup]="form" (ngSubmit)="editor(currId)">
+        <label for="first_name">First name</label>
+        <div>
+            <input type="text" formControlName="first_name">
+        </div>
+        <label for="last_name">Last name</label>
+        <div>
+            <input type="text" formControlName="last_name">
+        </div>
+        <label for="age">Age</label>
+        <div>
+            <input type="number" formControlName="age">
+        </div>
+        <label for="gender">Gender</label>
+        <div>
+            <input type="text" formControlName="gender">
+        </div>
+        <label for="email">Email</label>
+        <div>
+            <input type="email" formControlName="email">
+        </div>
+        <button [disabled]="form.invalid">UPDATE</button>
+        <button type="button" (click)="delete(currId)">DELETE</button>
+    </form>
+</section>
