@@ -19,6 +19,9 @@
         border-radius: 5px;
         cursor: pointer;
         transition: .3s;
+        &:disabled {
+            cursor: default;
+        }
         &:enabled:hover {
             background-color: rgb(211, 211, 211);
         }

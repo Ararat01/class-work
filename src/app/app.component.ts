@@ -17,18 +17,7 @@ export class AppComponent {
   title = 'class-work';
   text = ''
 
-  ngAfterViewInit(): void {
-    let a = document.getElementById('myId')
-    try {
-      if(a) {
-        a.style.width = "1000px"
-      }
-    }
-    catch(e) {
-      console.log(e);
-    }
-  }
-
+  
   test(value: string) {
     this.text = value
   }

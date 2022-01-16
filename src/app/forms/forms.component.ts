@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-forms',
@@ -8,18 +8,29 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FormsComponent implements OnInit {
 
-  form = new FormGroup({
-    first_name: new FormControl('', Validators.required),
-    last_name: new FormControl(''),
-    age: new FormControl(''),
-    email: new FormControl('', Validators.email),
-    // phone: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
-    gender: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(6)])
+  // form = new FormGroup({
+  //   first_name: new FormControl('', Validators.required),
+  //   last_name: new FormControl(''),
+  //   age: new FormControl(''),
+  //   email: new FormControl('', Validators.email),
+  //   // phone: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+  //   gender: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(6)])
+  // })
+
+  form = this.fb.group({
+    first_name: ['', Validators.required],
+    last_name: ['', Validators.required],
+    age: ['', Validators.required],
+    email: ['', [Validators.email, Validators.required]],
+    gender: ['', Validators.required]
   })
 
   formopen: Boolean = false
   currId: number = 0
-  constructor() { }
+
+  constructor(public fb: FormBuilder) {
+
+  }
 
   ngOnInit(): void {
     // this.form.setValue({
@@ -50,6 +61,8 @@ export class FormsComponent implements OnInit {
     { id: 9, name: 'Ann', lastname: 'Rodriguez', age: 20, gender: 'Female', email: 'joseph@gmail.com' },
     { id: 10, name: 'Thomas', lastname: 'Wilson', age: 28, gender: 'Male', email: 'thomas@gmail.com' },
   ]
+
+  
   openOrClose(memId: number) {
     this.form.setValue({
       first_name: this.members[memId]["name"],
@@ -61,6 +74,8 @@ export class FormsComponent implements OnInit {
     this.formopen = true
     this.currId = memId
   }
+
+
   editor(id: number): void {
     this.members[id]['name'] = this.form.value['first_name']
     this.members[id]['lastname'] = this.form.value['last_name']
@@ -69,6 +84,8 @@ export class FormsComponent implements OnInit {
     this.members[id]['email'] = this.form.value['email']
     this.formopen = false
   }
+
+
   delete(index: number) {
     this.formopen = false
     this.members.splice(index, 1)
