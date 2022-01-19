@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { RequestService } from '../sevice/request.service';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,15 @@ export class HomeComponent implements OnInit {
 
   response: any[] = [];
 
-  constructor(public request: RequestService) {
+  form = this.fb.group({
+    first_name: ['', Validators.required],
+    last_name: '',
+    age: '',
+    email: '',
+    gender: ''
+  })
 
-  }
+  constructor(public request: RequestService, public fb: FormBuilder) {}
 
 
   ngOnInit(): void {
@@ -24,7 +31,6 @@ export class HomeComponent implements OnInit {
     //   err => console.log(err.message),
     //   () => console.log('finished')   
     // )
-
 
     // this.request.get('https://jsonplaceholder.typicode.com/posts').subscribe(
     //   res => console.log(res), 
@@ -36,7 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMembers() {
-    this.request.get(`${environment.url}/people`).subscribe(
+    this.request.get(`${environment.url}/members`).subscribe(
       (res: any) => {
         console.log(res)
         this.response = res
@@ -48,10 +54,24 @@ export class HomeComponent implements OnInit {
 
   deleteMember(id: number) {
     if(confirm('Are u sure?')) {
-      this.request.delete(`${environment.url}/people/${id}`).subscribe(() => {
+      this.request.delete(`${environment.url}/members/${id}`).subscribe(() => {
         this.getMembers()
       })
     }
   }
 
+
+  addUser() {
+    const user = {
+      firstName: this.form.value['first_name'],
+      lastName: this.form.value['last_name'],
+      age: this.form.value['age'],
+      gender: this.form.value['gender'],
+      email: this.form.value['email'],
+    }
+    this.request.post(`${environment.url}/members`, user).subscribe((res) => {
+      console.log(res);
+      this.getMembers()
+    })
+  }
 }

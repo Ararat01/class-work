@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators'
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -16,4 +17,7 @@ export class RequestService {
     return this.http.delete(url)
   }
 
+  post(url: string, user: object) {
+    return this.http.post(url, user)
+  }
 }
