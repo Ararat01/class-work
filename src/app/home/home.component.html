@@ -19,16 +19,16 @@
     </table>
     <form [formGroup]="form" (ngSubmit)="addUser()">
         <div>
-            <input type="text" formControlName="first_name" placeholder="FIRSTNAME">
+            <input type="text" formControlName="firstName" placeholder="FIRSTNAME">
         </div>
         <div>
-            <input type="text" formControlName="last_name" placeholder="LASTNAME">
-        </div>
-        <div>
-            <input type="number" formControlName="age" placeholder="AGE">
+            <input type="text" formControlName="lastName" placeholder="LASTNAME">
         </div>
         <div>
             <input type="text" formControlName="gender" placeholder="GENDER">
+        </div>
+        <div>
+            <input type="number" formControlName="age" placeholder="AGE">
         </div>
         <div>
             <input type="email" formControlName="email" placeholder="EMAIL">

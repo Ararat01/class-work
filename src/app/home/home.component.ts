@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit {
   response: any[] = [];
 
   form = this.fb.group({
-    first_name: ['', Validators.required],
-    last_name: '',
+    firstName: ['', Validators.required],
+    lastName: '',
     age: '',
     email: '',
     gender: ''
@@ -37,14 +37,13 @@ export class HomeComponent implements OnInit {
     //   err => console.log(err.message),
     //   () => console.log('finished')   
     // )
-
+    
     this.getMembers()
   }
 
   getMembers() {
     this.request.get(`${environment.url}/members`).subscribe(
       (res: any) => {
-        console.log(res)
         this.response = res
       }, 
       err => console.log(err.message),
@@ -62,15 +61,7 @@ export class HomeComponent implements OnInit {
 
 
   addUser() {
-    const user = {
-      firstName: this.form.value['first_name'],
-      lastName: this.form.value['last_name'],
-      age: this.form.value['age'],
-      gender: this.form.value['gender'],
-      email: this.form.value['email'],
-    }
-    this.request.post(`${environment.url}/members`, user).subscribe((res) => {
-      console.log(res);
+    this.request.post(`${environment.url}/members`, this.form.value).subscribe((res) => {
       this.getMembers()
     })
   }
