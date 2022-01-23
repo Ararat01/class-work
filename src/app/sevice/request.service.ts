@@ -17,7 +17,11 @@ export class RequestService {
     return this.http.delete(url)
   }
 
-  post(url: string, user: object) {
-    return this.http.post(url, user)
+  post(url: string, member: object) {
+    return this.http.post(url, member)
+  }
+
+  put(url: string, member: any) {
+    return this.http.put(url, member)
   }
 }

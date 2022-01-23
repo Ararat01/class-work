@@ -6,7 +6,7 @@
             <th>Gender</th>
             <th>Age</th>
             <th>Phone Number</th>
-            <th>Delete</th>
+            <th colspan="2">Actions</th>
         </tr>
         <tr *ngFor="let member of response">
             <td>{{member.firstName}}</td>
@@ -14,10 +14,38 @@
             <td>{{member.gender}}</td>
             <td>{{member.age}}</td>
             <td>{{member.email}}</td>
-            <td><button (click)="deleteMember(member.id)">X</button></td>
+            <td>
+                <button (click)="editMemberForm(member)">EDIT</button>
+            </td>
+            <td>
+                <button (click)="deleteMember(member.id)">X</button>
+            </td>
         </tr>
     </table>
-    <form [formGroup]="form" (ngSubmit)="addUser()">
+    <form [formGroup]="form_edit" (ngSubmit)="editMember()" *ngIf="editForm">
+        <div>
+            <input type="text" formControlName="firstName" placeholder="FIRSTNAME">
+        </div>
+        <div>
+            <input type="text" formControlName="lastName" placeholder="LASTNAME">
+        </div>
+        <div>
+            <input type="text" formControlName="gender" placeholder="GENDER">
+        </div>
+        <div>
+            <input type="number" formControlName="age" placeholder="AGE">
+        </div>
+        <div>
+            <input type="email" formControlName="email" placeholder="EMAIL">
+        </div>
+        <div>
+            <button [disabled]="form_edit.invalid">EDIT</button>
+        </div>
+        <button (click)="editForm = !editForm">CANCEL</button>
+    </form>
+
+
+    <form [formGroup]="form" (ngSubmit)="addUser()" *ngIf="!editForm">
         <div>
             <input type="text" formControlName="firstName" placeholder="FIRSTNAME">
         </div>

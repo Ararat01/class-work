@@ -13,6 +13,10 @@ export class HomeComponent implements OnInit {
 
   response: any[] = [];
 
+  editForm = false
+  
+  currentId!: number;
+
   form = this.fb.group({
     firstName: ['', Validators.required],
     lastName: '',
@@ -20,6 +24,15 @@ export class HomeComponent implements OnInit {
     email: '',
     gender: ''
   })
+
+  form_edit = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: '',
+    age: '',
+    email: '',
+    gender: ''
+  })
+
 
   constructor(public request: RequestService, public fb: FormBuilder) {}
 
@@ -59,10 +72,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   addUser() {
     this.request.post(`${environment.url}/members`, this.form.value).subscribe((res) => {
       this.getMembers()
+      this.form.reset()
     })
+  }
+
+  editMemberForm(member: any) {
+    this.editForm = true;
+    this.form_edit.patchValue(member);
+    this.currentId = member.id
+  }
+
+  editMember() {
+    this.request.put(`${environment.url}/members/${this.currentId}`, this.form_edit.value).subscribe((res) => {
+      this.getMembers()
+      this.form_edit.reset()
+        this.editForm = false;
+    })
+    
   }
 }

@@ -7,6 +7,10 @@ import { TestComponent } from './test/test.component';
 import { FormsComponent } from './forms/forms.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { PipesComponent } from './pipes/pipes.component';
+import { TrimPipe } from './mypipes/trim.pipe';
+import { MydatePipe } from './mypipes/mydate.pipe';
+import { AsciiPipe } from './mypipes/ascii.pipe';
 // import { RequestService } from './sevice/request.service';
 
 const route: Routes = [
@@ -17,6 +21,10 @@ const route: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'pipes',
+    component: PipesComponent
   }
 ];
 
@@ -25,7 +33,11 @@ const route: Routes = [
     AppComponent,
     TestComponent,
     FormsComponent,
-    HomeComponent
+    HomeComponent,
+    PipesComponent,
+    TrimPipe,
+    MydatePipe,
+    AsciiPipe
   ],
   imports: [
     BrowserModule,

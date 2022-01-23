@@ -4,7 +4,8 @@ section {
     display: flex;
     justify-content: center;
     form {
-        input {
+        text-align: center;
+        input[type=text], input[type=email], input[type=number] {
             font-weight: bold;
             width: 200px;
             margin: 0 35px 20px ;
