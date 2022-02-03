@@ -7,6 +7,7 @@ import { Component,
  AfterContentChecked, 
  AfterViewChecked, 
  AfterViewInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,11 @@ import { Component,
 })
 export class AppComponent {
   title = 'class-work';
-  text = ''
 
-  
-  test(value: string) {
-    this.text = value
+  constructor(private route: Router){}
+
+  logout() {
+    this.route.navigateByUrl("/login")
+    localStorage.removeItem('token')
   }
-
 }

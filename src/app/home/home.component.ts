@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { RequestService } from '../sevice/request.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -8,7 +8,11 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('cild') child: any
+
+  html: number = 2
 
 
   response: any[] = [];
@@ -54,13 +58,21 @@ export class HomeComponent implements OnInit {
     this.getMembers()
   }
 
+  ngAfterViewInit():void {
+    console.log(this.child.str);
+  }
+
+  repeatStr(e: any) {
+    this.html = e * 2
+    
+  }
+
   getMembers() {
     this.request.get(`${environment.url}/members`).subscribe(
       (res: any) => {
         this.response = res
       }, 
-      err => console.log(err.message),
-      () => console.log('finished')   
+      err => console.log(err.message)
     )
   }
 
@@ -78,7 +90,6 @@ export class HomeComponent implements OnInit {
       this.form.reset()
     })
   }
-
   editMemberForm(member: any) {
     this.editForm = true;
     this.form_edit.patchValue(member);

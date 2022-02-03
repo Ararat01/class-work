@@ -4,27 +4,41 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
-import { FormsComponent } from './forms/forms.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
 import { PipesComponent } from './pipes/pipes.component';
 import { TrimPipe } from './mypipes/trim.pipe';
 import { MydatePipe } from './mypipes/mydate.pipe';
 import { AsciiPipe } from './mypipes/ascii.pipe';
-// import { RequestService } from './sevice/request.service';
+import { TrimDirective } from './directives/trim.directive';
+import { StyleChangeDirective } from './directives/style-change.directive';
+import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './guard/auth.guard';
+import { IsloggedGuard } from './guard/islogged.guard';
 
 const route: Routes = [
   {
     path: 'form',
-    component: FormsComponent
-  },
-  {
-    path: '',
-    component: HomeComponent
+    loadChildren: () => import('./forms/forms/forms.module').then(m => m.FormsModule)
   },
   {
     path: 'pipes',
     component: PipesComponent
+  },
+  {
+    path: '',
+    loadChildren: () => import('./home/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [IsloggedGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -32,18 +46,21 @@ const route: Routes = [
   declarations: [
     AppComponent,
     TestComponent,
-    FormsComponent,
-    HomeComponent,
     PipesComponent,
     TrimPipe,
     MydatePipe,
-    AsciiPipe
+    AsciiPipe,
+    TrimDirective,
+    StyleChangeDirective,
+    AboutComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(route),
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
 
 
